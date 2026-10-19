@@ -1,5 +1,5 @@
 #!/bin/bash
-# Installs a published Codex Meter release; no compiler, sudo or API key needed.
+# Installs the published Codex Meter binary; no compiler, sudo or API key needed.
 set -euo pipefail
 
 fail() { printf 'Codex Meter: %s\n' "$*" >&2; exit 1; }
@@ -11,10 +11,10 @@ case "$(uname -m)" in arm64|x86_64) ;; *) fail 'Unsupported Mac architecture.' ;
 REPOSITORY='changxuan0423/codex-meter'
 VERSION="${CODEX_METER_VERSION:-latest}"
 if [ "$VERSION" = latest ]; then
-  BASE_URL="https://github.com/$REPOSITORY/releases/latest/download"
+  BASE_URL="https://raw.githubusercontent.com/$REPOSITORY/main/dist"
 else
   case "$VERSION" in v[0-9]*) ;; *) fail 'CODEX_METER_VERSION must be a tag such as v1.0.5.' ;; esac
-  BASE_URL="https://github.com/$REPOSITORY/releases/download/$VERSION"
+  BASE_URL="https://raw.githubusercontent.com/$REPOSITORY/$VERSION/dist"
 fi
 ARCHIVE='CodexMeter-macos-universal.zip'
 INSTALL_DIR="${CODEX_METER_INSTALL_DIR:-$HOME/Applications}"

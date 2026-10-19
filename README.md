@@ -8,11 +8,11 @@
 curl -fsSL https://raw.githubusercontent.com/changxuan0423/codex-meter/main/install.sh | bash
 ```
 
-支持 Apple Silicon 和 Intel Mac。安装命令下载 GitHub Releases 中的通用版应用、核验 SHA-256 和应用签名，将其安装到 `~/Applications/Codex Meter.app`，然后自动启动。再次运行同一条命令即可更新；不需要 sudo、Swift 开发环境或 API Key。
+支持 Apple Silicon 和 Intel Mac。安装命令下载 仓库 `dist/` 中的通用版应用、核验 SHA-256 和应用签名，将其安装到 `~/Applications/Codex Meter.app`，然后自动启动。再次运行同一条命令即可更新；不需要 sudo、Swift 开发环境或 API Key。
 
 使用前请在 Codex CLI 或 Codex/ChatGPT 桌面应用中登录 ChatGPT 账户。应用读取该 CLI 的现有额度数据。
 
-也可以从 [Releases](https://github.com/changxuan0423/codex-meter/releases/latest) 下载 `CodexMeter-macos-universal.zip`，解压后放入「应用程序」并打开。应用采用 ad-hoc 签名，尚未进行 Apple Developer ID 签名和公证；如果系统阻止打开，可在确认下载来源后到「系统设置 → 隐私与安全性」查看系统提供的打开选项。安装脚本不会关闭 Gatekeeper 或移除系统安全属性。
+也可以直接[下载通用版安装包](https://github.com/changxuan0423/codex-meter/raw/refs/heads/main/dist/CodexMeter-macos-universal.zip)，解压后放入「应用程序」并打开。应用采用 ad-hoc 签名，尚未进行 Apple Developer ID 签名和公证；如果系统阻止打开，可在确认下载来源后到「系统设置 → 隐私与安全性」查看系统提供的打开选项。安装脚本不会关闭 Gatekeeper 或移除系统安全属性。
 
 ## 菜单栏显示
 
@@ -60,6 +60,6 @@ bash scripts/test.sh
 bash scripts/package-release.sh
 ```
 
-输出 `build/release/CodexMeter-macos-universal.zip` 与 `SHA256SUMS`，发布新 GitHub Release 时同时上传这两个文件。安装脚本默认下载最新发布版，可通过 `CODEX_METER_VERSION=v1.0.5` 固定版本。`CODEX_METER_INSTALL_DIR` 可指定安装目录，`CODEX_METER_SKIP_LAUNCH=1` 可用于验证安装包而不启动应用。
+输出 `build/release/CodexMeter-macos-universal.zip` 与 `SHA256SUMS`，并同步到仓库的 `dist/` 目录。发布更新时将源码和 `dist/` 一起提交。安装脚本默认下载 main 上的最新版本，可通过 `CODEX_METER_VERSION=v1.0.5` 固定版本。`CODEX_METER_INSTALL_DIR` 可指定安装目录，`CODEX_METER_SKIP_LAUNCH=1` 可用于验证安装包而不启动应用。
 
 源码结构：`Sources/Quota.swift` 负责数据解析，`Sources/CodexClient.swift` 负责 stdio JSON-RPC，`Sources/PanelPlacement.swift` 计算屏幕边界内的弹窗位置，`Sources/main.swift` 负责菜单栏和设置面板。`Resources/Info.plist` 设置后台菜单栏应用属性。

@@ -15,3 +15,5 @@ ditto -c -k --sequesterRsrc --keepParent "$APP_DIR" "$RELEASE_DIR/CodexMeter-mac
   shasum -a 256 CodexMeter-macos-universal.zip > SHA256SUMS
 )
 printf '%s\n' "$RELEASE_DIR/CodexMeter-macos-universal.zip" "$RELEASE_DIR/SHA256SUMS"
+mkdir -p "$PROJECT_DIR/dist"
+cp "$RELEASE_DIR/CodexMeter-macos-universal.zip" "$RELEASE_DIR/SHA256SUMS" "$PROJECT_DIR/dist/"
